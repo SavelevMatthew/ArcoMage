@@ -1,58 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace ArcoMaig
+namespace ArcoMage
 {
     class Player
     {
-        public static Resource Mine { get; private set; }
-        public static Resource Magic { get; private set; }
-        public static Resource Menagerie { get; private set; }
+        public Resources Resources;
         public static Castle Castle { get; private set; }
         public static Card[] Deck { get; private set; }
         private static int Cursor { get; set; }
 
-        private static Dictionary<ConsoleKey, Action> ComandsStep =
+        public Player(Resources res, Castle cast, Card[] deck)
+        {
+            Deck = deck;
+            Resources = res;
+            Castle = cast;
+        }
+
+        private static readonly Dictionary<ConsoleKey, Action> MovementCommands =
             new Dictionary<ConsoleKey, Action>
             {
-                [ConsoleKey.D] = () => CursorRight(),
-                [ConsoleKey.A] = () => CursorLeft(),
+                [ConsoleKey.D] = CursorRight,
+                [ConsoleKey.A] = CursorLeft,
             };
-        private static Dictionary<ConsoleKey, Func<Card>> ComandsCard =
+        private static readonly Dictionary<ConsoleKey, Func<Card>> CardCommands =
             new Dictionary<ConsoleKey, Func<Card>>
             {
-                [ConsoleKey.Enter] = () => GiveCard(),
-                [ConsoleKey.Spacebar] = () => FCard()
+                [ConsoleKey.Enter] = DropCard,
+                [ConsoleKey.Spacebar] = DestroyCard
             };
 
-        private static Card GiveCard()
+        private static Card DropCard()
         {
             var card = Deck[Cursor];
             Deck[Cursor] = new Card();
             return card;
         }
 
-        private static Card FCard()
+        private static Card DestroyCard()
         {
             Deck[Cursor] = new Card();
             return Card.GiveEmptyCard();
         }
 
-        private static void MoveCursor(ConsoleKey key) => ComandsStep[key]();
+        private static void MoveCursor(ConsoleKey key) => MovementCommands[key]();
 
         public Card Play()
         {
             var key = Console.ReadKey().Key;
             while(true)
             {
-                if (ComandsStep.ContainsKey(key))
-                    ComandsStep[key]();
-                if (ComandsCard.ContainsKey(key))
-                    return ComandsCard[key]();
+                if (MovementCommands.ContainsKey(key))
+                    MovementCommands[key]();
+                if (CardCommands.ContainsKey(key))
+                    return CardCommands[key]();
                 key = Console.ReadKey().Key;
             }
         }

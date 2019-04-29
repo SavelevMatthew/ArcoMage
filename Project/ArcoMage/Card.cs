@@ -1,25 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ArcoMaig
+namespace ArcoMage
 {
     class Card
     {
-        readonly Action<Player, Player> Effect;
-        readonly Func<Player, bool> CanPlay;
+        public readonly Dictionary<string, int> Cost;
+        private readonly Action<Player, Player> Effect;
+        //private readonly Func<Player, bool> CanPlay;
 
-        public Card(Action<Player, Player> effect, Func<Player, bool> canPlay)
+        public Card(Action<Player, Player> effect, Dictionary<string, int> costs)
         {
             Effect = effect;
-            CanPlay = canPlay;
+            Cost = costs;
         }
 
         public Card(){ }
 
-        public  Action<Player, Player> Play() => Effect;
-        public static Card GiveEmptyCard() => new Card( (p1, p2) => { }, (p) => true);
+        public Action<Player, Player> Drop() => Effect;
+        public static Card GiveEmptyCard() => new Card( (p1, p2) => { }, new Dictionary<string, int>());
+
+        public bool CanBeDropped(Player player)
+        {
+            foreach (var resource in Cost)
+            {
+                if (player.Resources[resource.Key].Count < resource.Value)
+                    return false;
+            }
+            return true;
+        }
     }
 }
