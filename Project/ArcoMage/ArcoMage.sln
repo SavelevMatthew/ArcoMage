@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcoMaig", "ArcoMaig\ArcoMaig.csproj", "{3DCDBE92-23E6-4705-810A-A7EB12D5AE7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcoMage", "ArcoMage.csproj", "{3DCDBE92-23E6-4705-810A-A7EB12D5AE7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {61C96D98-CE28-4530-A685-F2EF6D53D25B}
+		SolutionGuid = {ABD5FAE2-BFE8-455F-944B-0E425364CF0E}
 	EndGlobalSection
 EndGlobal
