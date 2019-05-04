@@ -29,5 +29,7 @@ namespace ArcoMage
             }
             return true;
         }
+
+        public static Card GenerateRandomCard() => GiveEmptyCard();
     }
 }

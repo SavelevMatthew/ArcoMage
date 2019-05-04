@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ArcoMage
 {
@@ -10,13 +11,16 @@ namespace ArcoMage
         private bool GameOver => playerIsWin(Player1) || playerIsWin(Player2);
         private bool? IsFirstPlayer;
 
-        public Game(int towerHealth, int wallHealth, Resources startResources, 
+        public Game(int towerHealth, int wallHealth, int deckSize, Dictionary<string, Resource> startResources, 
             Func<Player, bool> winCondition)
         {
-            var playerDeck = new Card[6];
             playerIsWin = winCondition;
-            Player1 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
-            Player2 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
+            var playerDeck = GenerateDeck(deckSize);
+            var resources = new Resources(startResources);
+            Player1 = new Player(resources, new Castle(towerHealth, wallHealth), playerDeck);
+            playerDeck = GenerateDeck(deckSize);
+            resources = new Resources(startResources);
+            Player2 = new Player(resources, new Castle(towerHealth, wallHealth), playerDeck);
         }
         public void Play()
         {
@@ -30,6 +34,16 @@ namespace ArcoMage
                 isFirstPlayer = !isFirstPlayer;
             }
             IsFirstPlayer = isFirstPlayer;
+        }
+
+        public Card[] GenerateDeck(int size)
+        {
+            var deck = new Card[size];
+            for(var i = 0; i < size; i++)
+            {
+                deck[i] = Card.GenerateRandomCard();
+            }
+            return deck;
         }
 
         public int GetWinner() => IsFirstPlayer == null ? 
