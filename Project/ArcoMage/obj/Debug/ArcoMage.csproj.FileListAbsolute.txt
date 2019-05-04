@@ -1,9 +1,0 @@
-C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\bin\Debug\ArcoMaig.exe.config
-C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\bin\Debug\ArcoMaig.exe
-C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\bin\Debug\ArcoMaig.pdb
-C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.csprojAssemblyReference.cache
-C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMaig.Properties.Resources.resources
-C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.csproj.GenerateResource.cache
-C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.csproj.CoreCompileInputs.cache
-C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMaig.exe
-C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMaig.pdb

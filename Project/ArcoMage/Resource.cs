@@ -1,6 +1,12 @@
-﻿namespace ArcoMage
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ArcoMaig
 {
-    public class Resource
+    class Resource
     {
         public int Source { get; private set; }
         public int Count { get; private set; }

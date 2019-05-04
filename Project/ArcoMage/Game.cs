@@ -1,32 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ArcoMage
+namespace ArcoMaig
 {
     class Game
     {
         public Player Player1;
         public Player Player2;
-        private readonly Func<Player, bool> playerIsWin;
-        private bool GameOver => playerIsWin(Player1) || playerIsWin(Player2);
+        private Func<Player, bool> PlayerIsWin;
+        private bool GameOver { get => PlayerIsWin(Player1) || PlayerIsWin(Player2); }
         private bool? IsFirstPlayer;
 
-        public Game(int towerHealth, int wallHealth, Resources startResources, 
-            Func<Player, bool> winCondition)
-        {
-            var playerDeck = new Card[6];
-            playerIsWin = winCondition;
-            Player1 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
-            Player2 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
-        }
         public void Play()
         {
             var isFirstPlayer = true;
             while(!GameOver)
             {
                 if (isFirstPlayer)
-                    Player1.Play().Drop()(Player1, Player2);
+                    Player1.Play().Play()(Player1, Player2);
                 else
-                    Player2.Play().Drop()(Player2, Player1);
+                    Player2.Play().Play()(Player2, Player1);
                 isFirstPlayer = !isFirstPlayer;
             }
             IsFirstPlayer = isFirstPlayer;

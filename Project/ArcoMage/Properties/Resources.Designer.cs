@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArcoMage.Properties
+namespace ArcoMaig.Properties
 {
 
 

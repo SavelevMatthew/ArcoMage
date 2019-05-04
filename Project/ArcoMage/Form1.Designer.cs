@@ -1,4 +1,4 @@
-﻿namespace ArcoMage
+﻿namespace ArcoMaig
 {
     partial class Form1
     {
