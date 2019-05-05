@@ -63,6 +63,7 @@
     <Compile Include="Resource.cs" />
     <Compile Include="Tests\Card_Tests.cs" />
     <Compile Include="Tests\Castle_Tests.cs" />
+    <Compile Include="Tests\Resource_Tests.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
