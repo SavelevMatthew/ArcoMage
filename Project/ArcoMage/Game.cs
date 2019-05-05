@@ -23,10 +23,10 @@ namespace ArcoMage
             Func<Player, Player, bool> winCondition)
         {
             this.winCondition = winCondition;
-            var playerDeck = DeckGenerator.GenerateDeck(deckSize);
+            var playerDeck = Cards.Generator.GenerateDeck(deckSize);
             
             Player1 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
-            playerDeck = DeckGenerator.GenerateDeck(deckSize);
+            playerDeck = Cards.Generator.GenerateDeck(deckSize);
             Player2 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
         }
         public void Play()
@@ -61,8 +61,6 @@ namespace ArcoMage
             p1 = temp;
         }
 
-
-
         public int GetWinner()
         {
             switch (Status)
@@ -74,20 +72,6 @@ namespace ArcoMage
                 default:
                     throw new Exception("Game wasn't finished!");
             }
-        }
-        
-    }
-
-    class DeckGenerator
-    {
-        public static Card[] GenerateDeck(int size)
-        {
-            var deck = new Card[size];
-            for (var i = 0; i < size; i++)
-            {
-                deck[i] = Card.GenerateRandomCard();
-            }
-            return deck;
         }
     }
 }
