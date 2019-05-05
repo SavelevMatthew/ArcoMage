@@ -10,7 +10,7 @@ namespace ArcoMage.Cards
     {
         public static Card GenerateRandomCard()
         {
-            return Card.GenerateRandomCard();
+            return Card.GiveEmptyCard();
         }
 
         public static Card[] GenerateDeck(int size)

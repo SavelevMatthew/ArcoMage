@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArcoMage.Cards;
 
 namespace ArcoMage
 {
@@ -33,6 +34,6 @@ namespace ArcoMage
             return true;
         }
 
-        public static Card GenerateRandomCard() => GiveEmptyCard();
+        public static Card GenerateRandomCard() => Generator.GenerateRandomCard();
     }
 }
