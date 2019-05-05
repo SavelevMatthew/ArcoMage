@@ -20,13 +20,13 @@ namespace ArcoMage
         private Card DropCard()
         {
             var card = Deck[Cursor];
-            Deck[Cursor] = new Card();
+            Deck[Cursor] = Card.GiveEmptyCard();
             return card;
         }
 
         private Card DestroyCard()
         {
-            Deck[Cursor] = new Card();
+            Deck[Cursor] = Card.GiveEmptyCard();
             return Card.GiveEmptyCard();
         }
 

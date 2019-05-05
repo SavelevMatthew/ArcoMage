@@ -1,4 +1,6 @@
-﻿namespace ArcoMage
+﻿using System;
+
+namespace ArcoMage
 {
     class Castle
     {
@@ -7,16 +9,21 @@
 
         public Castle(int tower, int wall)
         {
+            if (tower <= 0)
+                throw new ArgumentException("Tower should be positive.");
+            if (wall < 0)
+                throw new ArgumentException("Wall should be non-negative");
             Tower = tower;
             Wall = wall;
         }
 
         public void TakeDamage(int damage)
         {
-            Tower = damage > Wall ? Tower - (damage - Wall) : 0;
-            Wall = damage > Wall ? Wall - damage : 0;
+            if (damage > Wall)
+                TakeTowerDamage(damage - Wall);
+            Wall = damage < Wall ? Wall - damage : 0;
         }
 
-        public void TakeCastleDamage(int damage) => Tower = Tower > damage ? Tower - damage : 0;
+        public void TakeTowerDamage(int damage) => Tower = Tower > damage ? Tower - damage : 0;
     }
 }

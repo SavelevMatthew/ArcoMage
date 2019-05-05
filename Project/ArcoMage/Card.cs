@@ -7,15 +7,18 @@ namespace ArcoMage
     {
         public readonly Dictionary<string, int> Cost;
         private readonly Action<Player, Player> Effect;
-        //private readonly Func<Player, bool> CanPlay;
 
         public Card(Action<Player, Player> effect, Dictionary<string, int> costs)
         {
+            foreach (var cost in costs)
+            {
+                if (cost.Value <= 0)
+                    throw new Exception("Incorrect cost exception!");
+            }
             Effect = effect;
             Cost = costs;
         }
-
-        public Card(){ }
+        
 
         public Action<Player, Player> Drop() => Effect;
         public static Card GiveEmptyCard() => new Card( (p1, p2) => { }, new Dictionary<string, int>());
