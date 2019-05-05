@@ -5,47 +5,85 @@ namespace ArcoMage
 {
     class Game
     {
+        public enum Condition
+        {
+            NotStarted,
+            InGame,
+            FirstPlayerWin,
+            SecondPlayerWin
+        }
+
+        public Condition Status = Condition.NotStarted;
         public Player Player1;
         public Player Player2;
-        private readonly Func<Player, bool> playerIsWin;
-        private bool GameOver => playerIsWin(Player1) || playerIsWin(Player2);
-        private bool? IsFirstPlayer;
+        private readonly Func<Player, Player, bool> winCondition;
+        private bool GameOver => Status == Condition.FirstPlayerWin || Status == Condition.SecondPlayerWin;
 
         public Game(int towerHealth, int wallHealth, int deckSize, Dictionary<string, Resource> startResources, 
-            Func<Player, bool> winCondition)
+            Func<Player, Player, bool> winCondition)
         {
-            playerIsWin = winCondition;
-            var playerDeck = GenerateDeck(deckSize);
+            this.winCondition = winCondition;
+            var playerDeck = DeckGenerator.GenerateDeck(deckSize);
             
             Player1 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
-            playerDeck = GenerateDeck(deckSize);
+            playerDeck = DeckGenerator.GenerateDeck(deckSize);
             Player2 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
         }
         public void Play()
         {
-            var isFirstPlayer = true;
+            Status = Condition.InGame;
+            var currentPlayer = Player1;
+            var nextPlayer = Player2;
             while(!GameOver)
             {
-                if (isFirstPlayer)
-                    Player1.Play().Drop()(Player1, Player2);
-                else
-                    Player2.Play().Drop()(Player2, Player1);
-                isFirstPlayer = !isFirstPlayer;
+                currentPlayer.Play().Drop()(currentPlayer, nextPlayer);
+                CheckWinner();
+                SwapPlayers(ref currentPlayer, ref nextPlayer);             
             }
-            IsFirstPlayer = isFirstPlayer;
         }
 
-        public Card[] GenerateDeck(int size)
+        public void CheckWinner()
+        {
+            if (winCondition(Player1, Player2))
+                Status = Condition.FirstPlayerWin;
+            else if (winCondition(Player2, Player1))
+                Status = Condition.SecondPlayerWin;
+        }
+
+        public void SwapPlayers(ref Player p1, ref Player p2)
+        {
+            var temp = p2;
+            p2 = p1;
+            p1 = temp;
+        }
+
+
+
+        public int GetWinner()
+        {
+            switch (Status)
+            {
+                case Condition.FirstPlayerWin:
+                    return 1;
+                case Condition.SecondPlayerWin:
+                    return 2;
+                default:
+                    throw new Exception("Game wasn't finished!");
+            }
+        }
+        
+    }
+
+    class DeckGenerator
+    {
+        public static Card[] GenerateDeck(int size)
         {
             var deck = new Card[size];
-            for(var i = 0; i < size; i++)
+            for (var i = 0; i < size; i++)
             {
                 deck[i] = Card.GenerateRandomCard();
             }
             return deck;
         }
-
-        public int GetWinner() => IsFirstPlayer == null ? 
-            throw new Exception("Game did not start") : IsFirstPlayer == true ? 1 : 2;
     }
 }
