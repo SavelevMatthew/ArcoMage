@@ -5,7 +5,7 @@ namespace ArcoMage
 {
     class Player
     {
-        public Dictionary<string, Resource> Resources;
+        public readonly Dictionary<string, Resource> Resources;
         public Castle Castle { get; private set; }
         public Card[] Deck { get; private set; }
         private int Cursor { get; set; }

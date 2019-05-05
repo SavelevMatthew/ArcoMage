@@ -14,8 +14,8 @@ namespace ArcoMage
         }
 
         public Condition Status = Condition.NotStarted;
-        public Player Player1;
-        public Player Player2;
+        public readonly Player Player1;
+        public readonly Player Player2;
         private readonly Func<Player, Player, bool> winCondition;
         private bool GameOver => Status == Condition.FirstPlayerWin || Status == Condition.SecondPlayerWin;
 
