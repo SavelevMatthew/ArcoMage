@@ -17,6 +17,6 @@
             Count = countDamage > Count ? 0 : Count - countDamage;
         }
 
-        public void MakeStep() => Count += Source;
+        public void Update() => Count += Source;
     }
 }

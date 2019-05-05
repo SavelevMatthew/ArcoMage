@@ -30,7 +30,7 @@ namespace ArcoMage
             return Card.GiveEmptyCard();
         }
 
-        public Card Play()
+        public Card MakeStep()
         {
             var key = Console.ReadKey().Key;
             while(true)

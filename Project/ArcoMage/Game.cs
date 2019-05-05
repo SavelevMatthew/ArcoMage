@@ -36,7 +36,11 @@ namespace ArcoMage
             var nextPlayer = Player2;
             while(!GameOver)
             {
-                currentPlayer.Play().Drop()(currentPlayer, nextPlayer);
+                foreach (var r in currentPlayer.Resources)
+                    r.Value.Update();
+                foreach (var r in nextPlayer.Resources)
+                    r.Value.Update();
+                currentPlayer.MakeStep().Drop()(currentPlayer, nextPlayer);
                 CheckWinner();
                 SwapPlayers(ref currentPlayer, ref nextPlayer);             
             }
