@@ -18,8 +18,8 @@ namespace ArcoMage
                 ["res2"] = new Resource(2, 20),
                 ["res3"] = new Resource(3, 30)
             };
-            Func<Player, bool> winCondition = player => player.Castle.Tower <= 0 
-                                                          || player.Castle.Tower > 200;
+            Func<Player, bool> winCondition = player => player.Castle.TowerHealth <= 0 
+                                                          || player.Castle.TowerHealth > 200;
             var game = new Game(100, 25, 6, res, winCondition);
             game.Play();
             var winner = game.GetWinner();

@@ -16,11 +16,10 @@ namespace ArcoMage
         {
             playerIsWin = winCondition;
             var playerDeck = GenerateDeck(deckSize);
-            var resources = new Resources(startResources);
-            Player1 = new Player(resources, new Castle(towerHealth, wallHealth), playerDeck);
+            
+            Player1 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
             playerDeck = GenerateDeck(deckSize);
-            resources = new Resources(startResources);
-            Player2 = new Player(resources, new Castle(towerHealth, wallHealth), playerDeck);
+            Player2 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
         }
         public void Play()
         {

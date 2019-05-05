@@ -61,7 +61,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.cs" />
-    <Compile Include="Resources.cs" />
     <Compile Include="Tests\Card_Tests.cs" />
     <Compile Include="Tests\Castle_Tests.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

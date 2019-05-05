@@ -12,8 +12,8 @@ namespace ArcoMage.Tests
         public void CorrectInit()
         {
             castle = new Castle(1,1);
-            Assert.AreEqual(castle.Tower, 1);
-            Assert.AreEqual(castle.Wall, 1);
+            Assert.AreEqual(castle.TowerHealth, 1);
+            Assert.AreEqual(castle.WallHealth, 1);
         }
 
         [TestCase(0, 1)]
@@ -41,8 +41,8 @@ namespace ArcoMage.Tests
         {
             castle = new Castle(10, 10);
             castle.TakeDamage(damage);
-            Assert.AreEqual(expectedTower, castle.Tower);
-            Assert.AreEqual(expectedWall, castle.Wall);
+            Assert.AreEqual(expectedTower, castle.TowerHealth);
+            Assert.AreEqual(expectedWall, castle.WallHealth);
         }
     }
 }

@@ -16,10 +16,10 @@ namespace ArcoMage.Tests
             var correctCosts = new Dictionary<string, int> { ["stones"] = 5 };
             card = new Card(effect, correctCosts);
             var deck = new[] {card};
-            var res = new Resources(new Dictionary<string, Resource> { ["stones"] = new Resource() });
+            var res = new Dictionary<string, Resource> { ["stones"] = new Resource() };
             var p = new Player(res, new Castle(10,5), deck);
             Assert.IsFalse(p.Deck[0].CanBeDropped(p));
-            res = new Resources(new Dictionary<string, Resource> { ["stones"] = new Resource(1, 5) });
+            res["stones"] = new Resource(1, 5);
             p = new Player(res, new Castle(1,1), deck);
             Assert.IsTrue(p.Deck[0].CanBeDropped(p));
         }

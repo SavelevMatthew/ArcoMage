@@ -5,12 +5,12 @@ namespace ArcoMage
 {
     class Player
     {
-        public Resources Resources;
+        public Dictionary<string, Resource> Resources;
         public Castle Castle { get; private set; }
         public Card[] Deck { get; private set; }
         private int Cursor { get; set; }
 
-        public Player(Resources res, Castle cast, Card[] deck)
+        public Player(Dictionary<string, Resource> res, Castle cast, Card[] deck)
         {
             Deck = deck;
             Resources = res;

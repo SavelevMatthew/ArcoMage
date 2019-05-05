@@ -4,26 +4,26 @@ namespace ArcoMage
 {
     class Castle
     {
-        public int Tower { get; private set; }
-        public int Wall { get; private set;}
+        public int TowerHealth { get; private set; }
+        public int WallHealth { get; private set;}
 
-        public Castle(int tower, int wall)
+        public Castle(int towerHealth, int wallHealth)
         {
-            if (tower <= 0)
-                throw new ArgumentException("Tower should be positive.");
-            if (wall < 0)
-                throw new ArgumentException("Wall should be non-negative");
-            Tower = tower;
-            Wall = wall;
+            if (towerHealth <= 0)
+                throw new ArgumentException("TowerHealth should be positive.");
+            if (wallHealth < 0)
+                throw new ArgumentException("WallHealth should be non-negative");
+            TowerHealth = towerHealth;
+            WallHealth = wallHealth;
         }
 
         public void TakeDamage(int damage)
         {
-            if (damage > Wall)
-                TakeTowerDamage(damage - Wall);
-            Wall = damage < Wall ? Wall - damage : 0;
+            if (damage > WallHealth)
+                TakeTowerDamage(damage - WallHealth);
+            WallHealth = damage < WallHealth ? WallHealth - damage : 0;
         }
 
-        public void TakeTowerDamage(int damage) => Tower = Tower > damage ? Tower - damage : 0;
+        public void TakeTowerDamage(int damage) => TowerHealth = TowerHealth > damage ? TowerHealth - damage : 0;
     }
 }
