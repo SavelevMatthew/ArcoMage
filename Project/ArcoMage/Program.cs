@@ -23,13 +23,10 @@ namespace ArcoMage
                                                           || p1.Castle.TowerHealth > 200;
             var game = new Game(100, 25, 6, res, winCondition);
 
-            var form = new Window(game);
-            Application.Run(form);
-            //game.Play();
-            //var winner = game.GetWinner();
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
+            // var form = new Window(game);
+            //Application.Run(form);
+            game.Play();
+            var winner = game.GetWinner();
         }
     }
 }

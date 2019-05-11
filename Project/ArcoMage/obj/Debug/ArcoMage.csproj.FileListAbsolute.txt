@@ -11,4 +11,3 @@ C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.c
 C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.exe
 C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.pdb
 C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.Graphics.Window.resources
-C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.Form1.resources

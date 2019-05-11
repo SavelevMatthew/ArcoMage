@@ -19,7 +19,7 @@ namespace ArcoMage
         public readonly Player Player1;
         public readonly Player Player2;
         private readonly Func<Player, Player, bool> winCondition;
-        private bool GameOver => Status == Condition.FirstPlayerWin || Status == Condition.SecondPlayerWin;
+        public bool GameOver => Status == Condition.FirstPlayerWin || Status == Condition.SecondPlayerWin;
 
         public Game(int towerHealth, int wallHealth, int deckSize, Dictionary<string, Resource> startResources, 
             Func<Player, Player, bool> winCondition)
