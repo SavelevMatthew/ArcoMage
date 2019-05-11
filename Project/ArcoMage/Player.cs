@@ -8,7 +8,7 @@ namespace ArcoMage
         public readonly Dictionary<string, Resource> Resources;
         public Castle Castle { get; private set; }
         public Card[] Deck { get; private set; }
-        private int Cursor { get; set; }
+        public int Cursor { get; private set; }
 
         public Player(Dictionary<string, Resource> res, Castle cast, Card[] deck)
         {

@@ -18,7 +18,9 @@ namespace ArcoMage.Cards
             var deck = new Card[size];
             for (var i = 0; i < size; i++)
             {
-                deck[i] = GenerateRandomCard();
+                deck[i] = new Card(Card.GiveEmptyCard().Drop(),
+                    new Dictionary<string, int> { ["res1"] = 30, ["res2"] = 20, ["res3"] = 123123, },
+                    "asdasdjaksdjaksjdklasjdkljaskd");
             }
             return deck;
         }

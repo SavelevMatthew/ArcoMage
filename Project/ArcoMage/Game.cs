@@ -14,6 +14,8 @@ namespace ArcoMage
         }
 
         public Condition Status = Condition.NotStarted;
+        public readonly int TowerHealth;
+        public readonly int WallHealth;
         public readonly Player Player1;
         public readonly Player Player2;
         private readonly Func<Player, Player, bool> winCondition;
@@ -24,7 +26,8 @@ namespace ArcoMage
         {
             this.winCondition = winCondition;
             var playerDeck = Cards.Generator.GenerateDeck(deckSize);
-            
+            TowerHealth = towerHealth;
+            WallHealth = wallHealth;
             Player1 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
             playerDeck = Cards.Generator.GenerateDeck(deckSize);
             Player2 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);

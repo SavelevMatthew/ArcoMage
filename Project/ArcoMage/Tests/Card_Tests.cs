@@ -14,7 +14,7 @@ namespace ArcoMage.Tests
         public void CanBeDropped()
         {
             var correctCosts = new Dictionary<string, int> { ["stones"] = 5 };
-            card = new Card(effect, correctCosts);
+            card = new Card(effect, correctCosts, "asd");
             var deck = new[] {card};
             var res = new Dictionary<string, Resource> { ["stones"] = new Resource() };
             var p = new Player(res, new Castle(10,5), deck);
@@ -28,8 +28,9 @@ namespace ArcoMage.Tests
         public void CardCorrectInit()
         {
             var correctCosts = new Dictionary<string, int> { ["stones"] = 5 };
-            card = new Card(effect, correctCosts);
+            card = new Card(effect, correctCosts, "asd");
             Assert.AreEqual(card.Cost, correctCosts);
+            Assert.AreEqual("asd", card.Description);
         }
         [Test]
         public void CardInCorrectInit()
@@ -38,7 +39,7 @@ namespace ArcoMage.Tests
             var inCorrectCosts = new Dictionary<string, int> {["stones"] = -5};
             try
             {
-                card = new Card(effect, inCorrectCosts);
+                card = new Card(effect, inCorrectCosts,"asd");
             }
             catch (Exception e)
             {
