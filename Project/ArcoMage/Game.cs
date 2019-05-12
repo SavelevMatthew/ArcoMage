@@ -19,13 +19,13 @@ namespace ArcoMage
         public readonly Player Player1;
         public readonly Player Player2;
         public Player CurrentPlayer { get; private set; }
-        private readonly Func<Player, Player, bool> winCondition;
+        private readonly Func<Player, Player, bool> _winCondition;
         public bool GameOver => Status == Condition.FirstPlayerWin || Status == Condition.SecondPlayerWin;
 
         public Game(int towerHealth, int wallHealth, int deckSize, Dictionary<string, Resource> startResources, 
             Func<Player, Player, bool> winCondition)
         {
-            this.winCondition = winCondition;
+            this._winCondition = winCondition;
             var playerDeck = Cards.Generator.GenerateDeck(deckSize);
             TowerHealth = towerHealth;
             WallHealth = wallHealth;
@@ -42,9 +42,9 @@ namespace ArcoMage
 
         public void CheckWinner()
         {
-            if (winCondition(Player1, Player2))
+            if (_winCondition(Player1, Player2))
                 Status = Condition.FirstPlayerWin;
-            else if (winCondition(Player2, Player1))
+            else if (_winCondition(Player2, Player1))
                 Status = Condition.SecondPlayerWin;
         }
 

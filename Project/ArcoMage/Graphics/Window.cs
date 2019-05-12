@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Windows.Forms;
 using ArcoMage.Properties;
 
@@ -9,6 +10,13 @@ namespace ArcoMage.Graphics
 {
     class Window : Form
     {
+        private readonly Dictionary<string, SoundPlayer> _sounds = new Dictionary<string, SoundPlayer>
+        {
+            ["Move"] = new SoundPlayer(Resources.Move),
+            ["Delete"] = new SoundPlayer(Resources.Delete),
+            ["Wrong"] = new SoundPlayer(Resources.Wrong),
+            ["Drop"] = new SoundPlayer(Resources.Drop)
+        };
         private readonly Color _player1Color = Color.CadetBlue;
         private readonly Color _player2Color = Color.Brown;
         private readonly Dictionary<string, string> _moveKeys = new Dictionary<string, string>
@@ -48,10 +56,12 @@ namespace ArcoMage.Graphics
             {
                 if (key == _moveKeys["LeftEn"] || key == _moveKeys["LeftRu"])
                 {
+                    _sounds["Move"].Play();
                     _game.CurrentPlayer.CursorLeft();
                 }
                 else if (key == _moveKeys["RightEn"] || key == _moveKeys["RightRu"])
                 {
+                    _sounds["Move"].Play();
                     _game.CurrentPlayer.CursorRight();
                 }
                 else if (key == " " || _game.CurrentPlayer.Deck[_game.CurrentPlayer.Cursor].CanBeDropped(_game.CurrentPlayer))
@@ -59,6 +69,7 @@ namespace ArcoMage.Graphics
                     var card = (key == _moveKeys["Enter"])
                         ? _game.CurrentPlayer.DropCard()
                         : _game.CurrentPlayer.DestroyCard();
+                    _sounds[key == _moveKeys["Enter"] ? "Drop" : "Delete"].Play();
                     _game.CurrentPlayer.TakeResources(card.Cost);
                     card.Drop()(_game.CurrentPlayer, _game.GetOpponent());
                     _game.CheckWinner();
@@ -70,7 +81,15 @@ namespace ArcoMage.Graphics
                     _game.UpdateResources();
                     _game.SwapPlayers();
                 }
+                else
+                {
+                    _sounds["Wrong"].Play();
+                }
                 UpdateForm();
+            }
+            else
+            {
+                _sounds["Wrong"].Play();
             }
         }
 
@@ -119,8 +138,7 @@ namespace ArcoMage.Graphics
                 Height = ClientSize.Height,
                 Width = ClientSize.Width,
                 BackgroundImage = Resources.BG,
-                BackgroundImageLayout = ImageLayout.Stretch,
-                CellBorderStyle = TableLayoutPanelCellBorderStyle.Single
+                BackgroundImageLayout = ImageLayout.Stretch
             };
             var height = (int)(window.Height * 0.85);
             var castle1 = CreateBuilding(Resources.tower, height, LeftBottom);

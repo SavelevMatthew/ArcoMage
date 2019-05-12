@@ -62,7 +62,6 @@
     <Compile Include="Resource.cs" />
     <Compile Include="Tests\Card_Tests.cs" />
     <Compile Include="Tests\Castle_Tests.cs" />
-    <Compile Include="Tests\Player_Tests.cs" />
     <Compile Include="Tests\Resource_Tests.cs" />
     <EmbeddedResource Include="Graphics\Window.resx">
       <DependentUpon>Window.cs</DependentUpon>
@@ -95,6 +94,11 @@
     <Content Include="Graphics\Textures\BG.jpg" />
     <Content Include="Graphics\Textures\tower.png" />
     <Content Include="Graphics\Textures\wall.png" />
+    <Content Include="Sounds\Delete.wav" />
+    <Content Include="Sounds\Drop.wav" />
+    <Content Include="Sounds\Move.wav" />
+    <Content Include="Sounds\Wrong.wav" />
+    <Content Include="Sounds\KSHMR_Percussion_Flam_18_G.wav" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
