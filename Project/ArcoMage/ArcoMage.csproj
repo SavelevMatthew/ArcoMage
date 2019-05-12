@@ -51,7 +51,7 @@
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Generator.cs" />
     <Compile Include="Castle.cs" />
-    <Compile Include="Cards\DeckArcoMage.cs" />
+    <Compile Include="Cards\CardDataBase.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Window.cs">
       <SubType>Form</SubType>

@@ -2,7 +2,7 @@
 
 namespace ArcoMage
 {
-    class Castle
+    public class Castle
     {
         public int TowerHealth { get; private set; }
         public int WallHealth { get; private set;}

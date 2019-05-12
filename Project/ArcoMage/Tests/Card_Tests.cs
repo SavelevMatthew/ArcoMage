@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArcoMage.Cards;
 using NUnit.Framework;
 
 namespace ArcoMage.Tests
