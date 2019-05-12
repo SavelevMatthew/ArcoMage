@@ -15,9 +15,9 @@ namespace ArcoMage
         {
             var res = new Dictionary<string, Resource>
             {
-                ["res1"] = new Resource(1, 10),
-                ["res2"] = new Resource(2, 20),
-                ["res3"] = new Resource(3, 30)
+                [DeckArcoMage.brick] = new Resource(1, 10),
+                [DeckArcoMage.magic] = new Resource(2, 20),
+                [DeckArcoMage.animals] = new Resource(3, 30)
             };
             Func<Player, Player, bool> winCondition = (p1, p2) => p2.Castle.TowerHealth <= 0 
                                                           || p1.Castle.TowerHealth > 200;

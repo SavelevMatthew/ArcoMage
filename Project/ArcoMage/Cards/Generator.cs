@@ -6,22 +6,20 @@ using System.Threading.Tasks;
 
 namespace ArcoMage.Cards
 {
-    class Generator
+    static class Generator
     {
-        public static Card GenerateRandomCard()
-        {
-            return Card.GiveEmptyCard();
-        }
+        public static readonly Card EmptyCard = DeckArcoMage.EmptyCard; 
+
+        private static Random random = new Random();
+
+        public static Card GenerateRandomCard() => 
+            DeckArcoMage.Deck[Math.Abs((int)random.NextDouble() * DeckArcoMage.Deck.Count) % DeckArcoMage.Deck.Count];
 
         public static Card[] GenerateDeck(int size)
         {
             var deck = new Card[size];
             for (var i = 0; i < size; i++)
-            {
-                deck[i] = new Card(Card.GiveEmptyCard().Drop(),
-                    new Dictionary<string, int> { ["res1"] = 30, ["res2"] = 20, ["res3"] = 123123, },
-                    "asdasdjaksdjaksjdklasjdkljaskd");
-            }
+               deck[i] = GenerateRandomCard();
             return deck;
         }
     }

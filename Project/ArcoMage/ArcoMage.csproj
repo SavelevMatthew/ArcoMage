@@ -51,6 +51,7 @@
     <Compile Include="Cards\Card.cs" />
     <Compile Include="Cards\Generator.cs" />
     <Compile Include="Castle.cs" />
+    <Compile Include="Cards\DeckArcoMage.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Graphics\Window.cs">
       <SubType>Form</SubType>
@@ -93,6 +94,9 @@
     <Content Include="Graphics\Textures\BG.jpg" />
     <Content Include="Graphics\Textures\tower.png" />
     <Content Include="Graphics\Textures\wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

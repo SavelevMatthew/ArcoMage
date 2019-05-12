@@ -21,6 +21,12 @@ namespace ArcoMage
             Count = countDamage > Count ? 0 : Count - countDamage;
         }
 
+        public void AddResource(int source, int count)
+        {
+            Source += source;
+            Count += count;
+        }
+
         public void Update() => Count = (Count + Source) > 0 ? Count + Source : 0;
     }
 }
