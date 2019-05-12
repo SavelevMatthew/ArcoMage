@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ArcoMage.Cards;
 
 namespace ArcoMage
 {
@@ -17,42 +18,24 @@ namespace ArcoMage
             Castle = cast;
         }
 
-        private Card DropCard()
+        public Card DropCard()
         {
             var card = Deck[Cursor];
-            Deck[Cursor] = Card.GiveEmptyCard();
+            Deck[Cursor] = Generator.GenerateRandomCard();
             return card;
         }
 
-        private Card DestroyCard()
+        public Card DestroyCard()
         {
-            Deck[Cursor] = Card.GiveEmptyCard();
+            Deck[Cursor] = Generator.GenerateRandomCard();
             return Card.GiveEmptyCard();
         }
 
-        public Card MakeStep()
-        {
-            var key = Console.ReadKey().Key;
-            switch (key)
-            {
-                case ConsoleKey.D:
-                    CursorRight();
-                    return null;
-                case ConsoleKey.A:
-                    CursorLeft();
-                    return null;
-                case ConsoleKey.Enter:
-                    return DropCard();
-                case ConsoleKey.Spacebar:
-                    return DestroyCard();
-                default:
-                    return null;
-            }
-        }
+        
 
         private void MoveCursor(int shift) => 
             Cursor = (Cursor + shift + Deck.Length) % Deck.Length;
-        private void CursorRight() => MoveCursor(1);
-        private void CursorLeft() => MoveCursor(-1);
+        public void CursorRight() => MoveCursor(1);
+        public void CursorLeft() => MoveCursor(-1);
     }
 }

@@ -34,22 +34,6 @@ namespace ArcoMage
             Player2 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
             CurrentPlayer = Player1;
         }
-        public void Play()
-        {
-            Status = Condition.InGame;
-            var currentPlayer = Player1;
-            var nextPlayer = Player2;
-            while(!GameOver)
-            {
-                foreach (var r in currentPlayer.Resources)
-                    r.Value.Update();
-                foreach (var r in nextPlayer.Resources)
-                    r.Value.Update();
-                currentPlayer.MakeStep().Drop()(currentPlayer, nextPlayer);
-                CheckWinner();
-                //SwapPlayers(ref currentPlayer, ref nextPlayer);             
-            }
-        }
 
         public void CheckWinner()
         {
@@ -64,6 +48,8 @@ namespace ArcoMage
             CurrentPlayer = (CurrentPlayer == Player1) ? Player2 : Player1;
         }
 
+        public Player GetOpponent() => (CurrentPlayer == Player1) ? Player2 : Player1;
+
         public int GetWinner()
         {
             switch (Status)
@@ -74,6 +60,19 @@ namespace ArcoMage
                     return 2;
                 default:
                     throw new Exception("Game wasn't finished!");
+            }
+        }
+
+        public void UpdateResources()
+        {
+            foreach (var res in Player1.Resources)
+            {
+                res.Value.Update();
+            }
+
+            foreach (var res in Player2.Resources)
+            {
+                res.Value.Update();
             }
         }
     }
