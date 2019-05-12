@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ArcoMage.Cards;
 
 namespace ArcoMage
 {
-    class Card
+    public class Card
     {
         public readonly string Description;
         public readonly Dictionary<string, int> Cost;
@@ -15,7 +14,7 @@ namespace ArcoMage
             Description = description;
             foreach (var cost in costs)
             {
-                if (cost.Value <= 0)
+                if (cost.Value < 0)
                     throw new Exception("Incorrect cost exception!");
             }
             Effect = effect;
@@ -35,7 +34,5 @@ namespace ArcoMage
             }
             return true;
         }
-
-        public static Card GenerateRandomCard() => Generator.GenerateRandomCard();
     }
 }

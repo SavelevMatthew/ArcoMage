@@ -2,27 +2,35 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Timers;
 using System.Windows.Forms;
-using NUnit.Framework.Api;
 
 namespace ArcoMage.Graphics
 {
     class Window : Form
     {
+        private const double UpdateInterval = 100;
         private const AnchorStyles LeftBottom = AnchorStyles.Left | AnchorStyles.Bottom;
         private const AnchorStyles RightBottom = AnchorStyles.Right | AnchorStyles.Bottom;
         public Window(Game game)
-        {
+        { 
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            InitializeComponent(game);
+            InitializeParams();
+            Update(game);
+            //var timer = new Timer(UpdateInterval);
         }
 
-        private void InitializeComponent(Game game)
+        public void InitializeParams()
         {
-            SuspendLayout();
             BackColor = Color.FromArgb(128, 207, 17);
             ClientSize = new System.Drawing.Size(860, 500);
             Name = "Arcomage ver 1.0";
+            Text = "Acromage ver 1.0";
+        }
+
+        private void Update(Game game)
+        {
+            SuspendLayout();
             var window = new TableLayoutPanel()
             {
                 Height = ClientSize.Height,

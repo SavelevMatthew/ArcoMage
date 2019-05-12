@@ -18,6 +18,7 @@ namespace ArcoMage
         public readonly int WallHealth;
         public readonly Player Player1;
         public readonly Player Player2;
+        public Player CurrentPlayer { get; private set; }
         private readonly Func<Player, Player, bool> winCondition;
         public bool GameOver => Status == Condition.FirstPlayerWin || Status == Condition.SecondPlayerWin;
 
@@ -31,6 +32,7 @@ namespace ArcoMage
             Player1 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
             playerDeck = Cards.Generator.GenerateDeck(deckSize);
             Player2 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
+            CurrentPlayer = Player1;
         }
         public void Play()
         {
@@ -45,7 +47,7 @@ namespace ArcoMage
                     r.Value.Update();
                 currentPlayer.MakeStep().Drop()(currentPlayer, nextPlayer);
                 CheckWinner();
-                SwapPlayers(ref currentPlayer, ref nextPlayer);             
+                //SwapPlayers(ref currentPlayer, ref nextPlayer);             
             }
         }
 
@@ -57,11 +59,9 @@ namespace ArcoMage
                 Status = Condition.SecondPlayerWin;
         }
 
-        public void SwapPlayers(ref Player p1, ref Player p2)
+        public void SwapPlayers()
         {
-            var temp = p2;
-            p2 = p1;
-            p1 = temp;
+            CurrentPlayer = (CurrentPlayer == Player1) ? Player2 : Player1;
         }
 
         public int GetWinner()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ArcoMage
 {
-    class Player
+    public class Player
     {
         public readonly Dictionary<string, Resource> Resources;
         public Castle Castle { get; private set; }
@@ -33,23 +33,20 @@ namespace ArcoMage
         public Card MakeStep()
         {
             var key = Console.ReadKey().Key;
-            while(true)
+            switch (key)
             {
-                switch (key)
-                {
-                    case ConsoleKey.D:
-                        CursorRight();
-                        break;
-                    case ConsoleKey.A:
-                        CursorLeft();
-                        break;
-                    case ConsoleKey.Enter:
-                        return DropCard();
-                    case ConsoleKey.Spacebar:
-                        return DestroyCard();
-                }
-
-                key = Console.ReadKey().Key;
+                case ConsoleKey.D:
+                    CursorRight();
+                    return null;
+                case ConsoleKey.A:
+                    CursorLeft();
+                    return null;
+                case ConsoleKey.Enter:
+                    return DropCard();
+                case ConsoleKey.Spacebar:
+                    return DestroyCard();
+                default:
+                    return null;
             }
         }
 
