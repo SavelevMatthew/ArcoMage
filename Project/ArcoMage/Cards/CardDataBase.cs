@@ -7,6 +7,7 @@ namespace ArcoMage.Cards
         public const string Brick = "Bricks";
         public const string Magic = "Magic";
         public const string Animals = "Animals";
+        public static readonly Card _emptyCard = Card.GiveEmptyCard();
         public static readonly List<Card> Deck = new List<Card>
         {
             new Card((p1, p2) => {
