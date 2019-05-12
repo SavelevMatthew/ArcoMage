@@ -127,4 +127,9 @@
   <data name="wall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Graphics\Textures\wall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Window_Controls" xml:space="preserve">
+    <value>A,D - сдвинуть курсор, 
+ ENTER- сходить картой,
+ SPACE - выбросить карту</value>
+  </data>
 </root>

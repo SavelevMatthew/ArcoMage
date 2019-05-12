@@ -30,8 +30,13 @@ namespace ArcoMage
             TowerHealth = towerHealth;
             WallHealth = wallHealth;
             Player1 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
+            var player2Resource = new Dictionary<string, Resource>();
+            foreach (var res in startResources)
+            {
+                player2Resource.Add(res.Key, new Resource(res.Value.Source, res.Value.Count));
+            }
             playerDeck = Cards.Generator.GenerateDeck(deckSize);
-            Player2 = new Player(startResources, new Castle(towerHealth, wallHealth), playerDeck);
+            Player2 = new Player(player2Resource, new Castle(towerHealth, wallHealth), playerDeck);
             CurrentPlayer = Player1;
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ArcoMage.Properties;
 
 namespace ArcoMage.Graphics
 {
@@ -12,8 +13,10 @@ namespace ArcoMage.Graphics
         private readonly Color _player2Color = Color.Brown;
         private readonly Dictionary<string, string> _moveKeys = new Dictionary<string, string>
         {
-            ["Left"] = "a",
-            ["Right"] = "d",
+            ["LeftEn"] = "a",
+            ["RightEn"] = "d",
+            ["LeftRu"] = "ф",
+            ["RightRu"] = "в",
             ["Enter"] = "\r",
             ["Space"] = " "
         };
@@ -26,6 +29,7 @@ namespace ArcoMage.Graphics
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             InitializeParams();
             DrawForm();
+            MessageBox.Show(Resources.Window_Controls, "Управление", MessageBoxButtons.OK);
             game.Status = Game.Condition.InGame;
         }
 
@@ -42,11 +46,11 @@ namespace ArcoMage.Graphics
             var key = e.KeyChar.ToString().ToLower();
             if (_moveKeys.ContainsValue(key))
             {
-                if (key == _moveKeys["Left"])
+                if (key == _moveKeys["LeftEn"] || key == _moveKeys["LeftRu"])
                 {
                     _game.CurrentPlayer.CursorLeft();
                 }
-                else if (key == _moveKeys["Right"])
+                else if (key == _moveKeys["RightEn"] || key == _moveKeys["RightRu"])
                 {
                     _game.CurrentPlayer.CursorRight();
                 }
@@ -57,6 +61,12 @@ namespace ArcoMage.Graphics
                         : _game.CurrentPlayer.DestroyCard();
                     _game.CurrentPlayer.TakeResources(card.Cost);
                     card.Drop()(_game.CurrentPlayer, _game.GetOpponent());
+                    _game.CheckWinner();
+                    if (_game.GameOver)
+                    {
+                        MessageBox.Show($"Игрок {_game.GetWinner()} победил!!!", "Поздравляем!", MessageBoxButtons.OK);
+                        Close();
+                    }
                     _game.UpdateResources();
                     _game.SwapPlayers();
                 }
@@ -108,15 +118,15 @@ namespace ArcoMage.Graphics
             {
                 Height = ClientSize.Height,
                 Width = ClientSize.Width,
-                BackgroundImage = Properties.Resources.BG,
+                BackgroundImage = Resources.BG,
                 BackgroundImageLayout = ImageLayout.Stretch,
                 CellBorderStyle = TableLayoutPanelCellBorderStyle.Single
             };
             var height = (int)(window.Height * 0.85);
-            var castle1 = CreateBuilding(Properties.Resources.tower, height, LeftBottom);
-            var wall1 = CreateBuilding(Properties.Resources.wall, height, LeftBottom);
-            var castle2 = CreateBuilding(Properties.Resources.tower, height, RightBottom);
-            var wall2 = CreateBuilding(Properties.Resources.wall, height, RightBottom);
+            var castle1 = CreateBuilding(Resources.tower, height, LeftBottom);
+            var wall1 = CreateBuilding(Resources.wall, height, LeftBottom);
+            var castle2 = CreateBuilding(Resources.tower, height, RightBottom);
+            var wall2 = CreateBuilding(Resources.wall, height, RightBottom);
 
             for (var i = 0; i < 8; i++)
                 window.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.4f));

@@ -89,5 +89,16 @@ namespace ArcoMage.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на A,D - сдвинуть курсор, 
+        /// ENTER- сходить картой,
+        /// SPACE - выбросить карту.
+        /// </summary>
+        internal static string Window_Controls {
+            get {
+                return ResourceManager.GetString("Window_Controls", resourceCulture);
+            }
+        }
     }
 }
