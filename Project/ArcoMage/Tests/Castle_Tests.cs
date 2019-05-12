@@ -44,5 +44,35 @@ namespace ArcoMage.Tests
             Assert.AreEqual(expectedTower, castle.TowerHealth);
             Assert.AreEqual(expectedWall, castle.WallHealth);
         }
+        [TestCase(10,10,10, 10)]
+        [TestCase(5, 5, 5, 5)]
+        public void AddTowerWallCorrectTest(int t, int w, int deltaT, int deltaW)
+        {
+            castle = new Castle(t,w);
+            castle.AddTower(deltaT);
+            castle.AddWall(deltaW);
+            Assert.AreEqual(t + deltaT, castle.TowerHealth);
+            Assert.AreEqual(w + deltaW, castle.WallHealth);
+        }
+
+        [TestCase(1,1,-1,-1)]
+        [TestCase(1, 1, 1, -1)]
+        [TestCase(1, 1, -1, 1)]
+        public void AddTowerWallInCorrectTest(int t, int w, int deltaT, int deltaW)
+        {
+            castle = new Castle(t,w);
+            Exception ex = null;
+            try
+            {
+                castle.AddTower(deltaT);
+                castle.AddTower(deltaW);
+            }
+            catch (Exception e)
+            {
+                ex = e;
+            }
+            Assert.NotNull(ex);
+        }
+
     }
 }

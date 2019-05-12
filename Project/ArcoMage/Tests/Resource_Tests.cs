@@ -57,5 +57,15 @@ namespace ArcoMage.Tests
             Assert.AreEqual(-5, resource.Source);
             Assert.AreEqual(0, resource.Count);
         }
+
+        [TestCase(5, 5, 5, 5)]
+        [TestCase(5, 5, -5, -5)]
+        public void ChangeResourceTest(int s, int c, int ds, int dc)
+        {
+            resource = new Resource(s,c);
+            resource.ChangeResource(ds, dc);
+            Assert.AreEqual(s + ds, resource.Source);
+            Assert.AreEqual(dc + c, resource.Count);
+        }
     }
 }

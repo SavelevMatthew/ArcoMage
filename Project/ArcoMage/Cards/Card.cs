@@ -27,6 +27,7 @@ namespace ArcoMage.Cards
         
 
         public Action<Player, Player> Drop() => _effect;
+        
         public static Card GiveEmptyCard() => new Card( (p1, p2) => { }, new Dictionary<string, int>(), "Empty Card!");
 
         public bool CanBeDropped(Player player)

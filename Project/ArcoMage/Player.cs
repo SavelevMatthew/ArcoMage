@@ -31,7 +31,14 @@ namespace ArcoMage
             return Card.GiveEmptyCard();
         }
 
-        
+        public void TakeResources(Dictionary<string, int> costs)
+        {
+            foreach (var cost in costs)
+            {
+                var resource = Resources[cost.Key];
+                Resources[cost.Key] = new Resource(resource.Source, resource.Count - cost.Value);
+            }
+        }
 
         private void MoveCursor(int shift) => 
             Cursor = (Cursor + shift + Deck.Length) % Deck.Length;

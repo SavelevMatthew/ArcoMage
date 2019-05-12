@@ -55,6 +55,7 @@ namespace ArcoMage.Graphics
                     var card = (key == _moveKeys["Enter"])
                         ? _game.CurrentPlayer.DropCard()
                         : _game.CurrentPlayer.DestroyCard();
+                    _game.CurrentPlayer.TakeResources(card.Cost);
                     card.Drop()(_game.CurrentPlayer, _game.GetOpponent());
                     _game.UpdateResources();
                     _game.SwapPlayers();
