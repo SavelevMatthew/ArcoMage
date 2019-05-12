@@ -1,0 +1,13 @@
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.csprojAssemblyReference.cache
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.csproj.GenerateResource.cache
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.csproj.CoreCompileInputs.cache
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.Properties.Resources.resources
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\bin\Debug\ArcoMage.exe.config
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\bin\Debug\ArcoMage.exe
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\bin\Debug\ArcoMage.pdb
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\bin\Debug\nunit.framework.dll
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\bin\Debug\nunit.framework.xml
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.csproj.CopyComplete
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.exe
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.pdb
+C:\Users\Toaster\Documents\GitHub\ArcoMage\Project\ArcoMage\obj\Debug\ArcoMage.Graphics.Window.resources
