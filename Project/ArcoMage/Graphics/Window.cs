@@ -2,21 +2,16 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Media;
 using System.Windows.Forms;
+using ArcoMage.Graphics.Builders;
 using ArcoMage.Properties;
+using ArcoMage.Sounds;
 
 namespace ArcoMage.Graphics
 {
     class Window : Form
     {
-        private readonly Dictionary<string, SoundPlayer> _sounds = new Dictionary<string, SoundPlayer>
-        {
-            ["Move"] = new SoundPlayer(Resources.Move),
-            ["Delete"] = new SoundPlayer(Resources.Delete),
-            ["Wrong"] = new SoundPlayer(Resources.Wrong),
-            ["Drop"] = new SoundPlayer(Resources.Drop)
-        };
+        private static readonly Random ColorGenerator = new Random();
         private readonly Color _player1Color = Color.CadetBlue;
         private readonly Color _player2Color = Color.Brown;
         private readonly Dictionary<string, string> _moveKeys = new Dictionary<string, string>
@@ -48,6 +43,12 @@ namespace ArcoMage.Graphics
             Name = "Arcomage ver 1.0";
         }
 
+        protected override void OnClientSizeChanged(EventArgs e)
+        {
+            base.OnClientSizeChanged(e);
+            DrawForm();
+        }
+
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
             base.OnKeyPress(e);
@@ -56,12 +57,12 @@ namespace ArcoMage.Graphics
             {
                 if (key == _moveKeys["LeftEn"] || key == _moveKeys["LeftRu"])
                 {
-                    _sounds["Move"].Play();
+                    Sound.Play(SoundType.Move);
                     _game.CurrentPlayer.CursorLeft();
                 }
                 else if (key == _moveKeys["RightEn"] || key == _moveKeys["RightRu"])
                 {
-                    _sounds["Move"].Play();
+                    Sound.Play(SoundType.Move);
                     _game.CurrentPlayer.CursorRight();
                 }
                 else if (key == " " || _game.CurrentPlayer.Deck[_game.CurrentPlayer.Cursor].CanBeDropped(_game.CurrentPlayer))
@@ -69,7 +70,7 @@ namespace ArcoMage.Graphics
                     var card = (key == _moveKeys["Enter"])
                         ? _game.CurrentPlayer.DropCard()
                         : _game.CurrentPlayer.DestroyCard();
-                    _sounds[key == _moveKeys["Enter"] ? "Drop" : "Delete"].Play();
+                    Sound.Play(key == _moveKeys["Enter"] ? SoundType.Drop : SoundType.Delete);
                     _game.CurrentPlayer.TakeResources(card.Cost);
                     card.Drop()(_game.CurrentPlayer, _game.GetOpponent());
                     _game.CheckWinner();
@@ -83,13 +84,13 @@ namespace ArcoMage.Graphics
                 }
                 else
                 {
-                    _sounds["Wrong"].Play();
+                    Sound.Play(SoundType.Wrong);
                 }
                 UpdateForm();
             }
             else
             {
-                _sounds["Wrong"].Play();
+                Sound.Play(SoundType.Wrong);
             }
         }
 
@@ -141,10 +142,10 @@ namespace ArcoMage.Graphics
                 BackgroundImageLayout = ImageLayout.Stretch
             };
             var height = (int)(window.Height * 0.85);
-            var castle1 = CreateBuilding(Resources.tower, height, LeftBottom);
-            var wall1 = CreateBuilding(Resources.wall, height, LeftBottom);
-            var castle2 = CreateBuilding(Resources.tower, height, RightBottom);
-            var wall2 = CreateBuilding(Resources.wall, height, RightBottom);
+            var castle1 = CastleBuilder.BuildTower(height, LeftBottom);
+            var wall1 = CastleBuilder.BuildWall(height, LeftBottom);
+            var castle2 = CastleBuilder.BuildTower(height, RightBottom);
+            var wall2 = CastleBuilder.BuildWall(height, RightBottom);
 
             for (var i = 0; i < 8; i++)
                 window.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.4f));
@@ -158,10 +159,10 @@ namespace ArcoMage.Graphics
             window.Controls.Add(wall1, 2, 0);
             window.Controls.Add(wall2, 5, 0);
             // HP buildings
-            window.Controls.Add(DrawHealthLabel("tower1", _game.Player1.Castle.TowerHealth), 1, 1);
-            window.Controls.Add(DrawHealthLabel("tower2", _game.Player2.Castle.TowerHealth), 6, 1);
-            window.Controls.Add(DrawHealthLabel("wall1", _game.Player1.Castle.WallHealth), 2, 1);
-            window.Controls.Add(DrawHealthLabel("wall2", _game.Player2.Castle.WallHealth), 5, 1);
+            window.Controls.Add(LabelBuilder.CreateHealthBar("tower1", _game.Player1.Castle.TowerHealth), 1, 1);
+            window.Controls.Add(LabelBuilder.CreateHealthBar("tower2", _game.Player2.Castle.TowerHealth), 6, 1);
+            window.Controls.Add(LabelBuilder.CreateHealthBar("wall1", _game.Player1.Castle.WallHealth), 2, 1);
+            window.Controls.Add(LabelBuilder.CreateHealthBar("wall2", _game.Player2.Castle.WallHealth), 5, 1);
             // Resources building
             window.Controls.Add(DrawResources("res1", _game.Player1.Resources, ContentAlignment.TopLeft, _player1Color),
                 0, 0);
@@ -177,66 +178,14 @@ namespace ArcoMage.Graphics
 
         }
 
-        public PictureBox CreateBuilding(Image img, int height, AnchorStyles anchors)
-        {
-            return new PictureBox
-            {
-                Image = img,
-                BackColor = Color.Transparent,
-                SizeMode = PictureBoxSizeMode.StretchImage,
-                Anchor = anchors,
-                Height = height,
-            };
-        }
-
-        public Label DrawHealthLabel(string name, int health)
-        {
-            return new Label
-            {
-                Name = name,
-                Text = health.ToString(),
-                TextAlign = ContentAlignment.MiddleCenter,
-                BackColor = Color.Black,
-                ForeColor = Color.White,
-                Font = new Font("Arial", 15, FontStyle.Bold),
-                Dock = DockStyle.Fill
-            };
-        }
-
         public TableLayoutPanel DrawResources(string name, Dictionary<string, Resource> res, ContentAlignment align, Color bg)
         {
-            return CreateLabelList(name, res
+            return LabelBuilder.CreateLabelList(name, res
                 .Select(e => Tuple.Create(e.Key, $"{e.Key}:\n{e.Value.Count} (+{e.Value.Source})"))
                 .ToList(), align, new Font("Arial", 12, FontStyle.Bold), bg);
         }
 
-        public TableLayoutPanel CreateLabelList(string name, List<Tuple<string, string>> content, ContentAlignment align, Font font, Color bg)
-        {
-            var result = new TableLayoutPanel
-            {
-                Name = name,
-                BackColor = bg,
-                Dock = DockStyle.Fill,
-                CellBorderStyle = TableLayoutPanelCellBorderStyle.Single
-            };
-            var counter = 0;
-            var h = 100 / content.Count;
-            foreach (var e in content)
-            {
-                result.RowStyles.Add(new RowStyle(SizeType.Percent, h));
-                result.Controls.Add(new Label
-                {
-                    Name = e.Item1,
-                    Text = e.Item2,
-                    TextAlign = align,
-                    Font = font,
-                    Dock = DockStyle.Fill
-                }, 0, counter);
-                counter++;
-            }
-
-            return result;
-        }
+        
 
         public void DrawDeck(Player player, TableLayoutPanel window, Color playerColor)
         {
@@ -268,7 +217,7 @@ namespace ArcoMage.Graphics
                 var costsFormat = player.Deck[i - 1].Cost
                     .Select(e => Tuple.Create(e.Key, $"{e.Key}: {e.Value}"))
                     .ToList();
-                var costs = CreateLabelList("costs", costsFormat, ContentAlignment.MiddleLeft,
+                var costs = LabelBuilder.CreateLabelList("costs", costsFormat, ContentAlignment.MiddleLeft,
                     new Font("Arial", 8, FontStyle.Bold), _game.CurrentPlayer.Deck[i - 1].Color);
                 costs.Padding = new Padding(0);
                 costs.Margin = new Padding(5, 0, 5, 5);
@@ -281,8 +230,8 @@ namespace ArcoMage.Graphics
 
         public static Color GetRandomColor()
         {
-            var rnd = new Random();
-            return Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256));
+            
+            return Color.FromArgb(ColorGenerator.Next(256), ColorGenerator.Next(256), ColorGenerator.Next(256));
         }
     }
 }

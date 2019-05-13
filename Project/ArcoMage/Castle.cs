@@ -20,13 +20,13 @@ namespace ArcoMage
         public void AddTower(int towerPlus)
         {
             if (towerPlus < 0)
-                throw new ArgumentException("towerPlus should be non-negative");
+                throw new ArgumentException($"{nameof(towerPlus)} should be non-negative");
             TowerHealth += towerPlus;
         }
         public void AddWall(int wallPlus)
         {
             if (wallPlus < 0)
-                throw new ArgumentException("wallPlus should be non-negative");
+                throw new ArgumentException($"{nameof(wallPlus)} should be non-negative");
             WallHealth += wallPlus;
         }
 
